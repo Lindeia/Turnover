@@ -7,7 +7,6 @@
     <list default="true" id="ea59a9b0-3552-4d23-a44f-a0593766d0ea" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Teste.py" beforeDir="false" afterPath="$PROJECT_DIR$/Teste.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analisededados.py" beforeDir="false" afterPath="$PROJECT_DIR$/analisededados.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,9 +30,15 @@
     &quot;Python.analisedados2.executor&quot;: &quot;Run&quot;,
     &quot;Python.analisededados.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Teste&quot;
+    &quot;git-widget-placeholder&quot;: &quot;Teste&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/karol/Documents/Analise de Dados&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\karol\Documents\Analise de Dados" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

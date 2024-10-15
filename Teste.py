@@ -10,49 +10,52 @@ pd.set_option('display.max_rows', None)
 print(dados_filtrados.shape)
 print(dados_filtrados)
 
+Genero = dados_filtrados ['gender'].value_counts().sort_index()
+Idade = dados_filtrados['age'].value_counts().sort_index()
+Indústria = dados_filtrados['industry'].value_counts().sort_index()
+Profissão = dados_filtrados['profession'].value_counts().sort_index()
+Transporte = dados_filtrados['way'].value_counts().sort_index()
+Extroversão = dados_filtrados['extraversion'].value_counts().sort_index()
+Independência = dados_filtrados['independ'].value_counts().sort_index()
+Autocontrole = dados_filtrados['selfcontrol'].value_counts().sort_index()
+Ansiedade = dados_filtrados['anxiety'].value_counts().sort_index()
+Novato = dados_filtrados['novator'].value_counts().sort_index()
 
+print(Idade, Extroversão, Indústria, Transporte, Independência, Ansiedade, Novato, Genero)
 
+dados_filtrados = dados_filtrados.dropna()
+print(dados_filtrados.head())
 
-'''for col in ['gender', 'industry', 'profession', 'way']:
-    dados_filtrados[col] = dados_filtrados[col].str.strip().str.lower()
+plt.figure(figsize=(10, 4))
 
+plt.hist(dados_filtrados['gender'], bins=20, alpha=0.5, label='Genero', color='cyan')
 
-for col in ['age', 'extraversion', 'independ', 'selfcontrol', 'anxiety', 'novator']:
-    dados_filtrados[col] = pd.to_numeric(dados_filtrados[col], errors='coerce').fillna(0)
+plt.hist(dados_filtrados['age'], bins=20, alpha=0.5, label='Idade', color='blue')
 
+plt.hist(dados_filtrados['extraversion'], bins=20, alpha=0.5, label='Extroversão', color='orange')
 
-dados_filtrados['gender'] = dados_filtrados['gender'].str.strip().str.lower()
-dados_filtrados['industry'] = dados_filtrados['industry'].str.strip().str.lower()
-dados_filtrados['profession'] = dados_filtrados['profession'].str.strip().str.lower()
-dados_filtrados['way'] = dados_filtrados['way'].str.strip().str.lower()
+plt.hist(dados_filtrados['industry'], bins=20, alpha=0.5, label='Indústria', color='red')
 
+plt.hist(dados_filtrados['profession'], bins=20, alpha=0.5, label='Profissão', color='brown')
 
+plt.hist(dados_filtrados['way'], bins=20, alpha=0.5, label='Transporte', color='purple')
 
-print(dados_filtrados.isnull().sum())
+plt.hist(dados_filtrados['independ'], bins=20, alpha=0.5, label='Indepêndencia', color='green')
 
+plt.hist(dados_filtrados['selfcontrol'], bins=20, alpha=0.5, label='Autocontrole', color='gray')
 
-contagens = {
-    'Gênero': dados_filtrados['gender'].value_counts(),
-    'Idade': dados_filtrados['age'].value_counts(),
-    'Indústria': dados_filtrados['industry'].value_counts(),
-    'Profissão': dados_filtrados['profession'].value_counts(),
-    'Transporte': dados_filtrados['way'].value_counts(),
-    'Extroversão': dados_filtrados['extraversion'].value_counts(),
-    'Independência': dados_filtrados['independ'].value_counts(),
-    'Autocontrole': dados_filtrados['selfcontrol'].value_counts(),
-    'Ansiedade': dados_filtrados['anxiety'].value_counts(),
-    'Novato': dados_filtrados['novator'].value_counts()
-}
+plt.hist(dados_filtrados['anxiety'], bins=20, alpha=0.5, label='Ansiedade', color='yellow')
 
-df_contagens = pd.DataFrame(contagens).fillna(0)
+plt.hist(dados_filtrados['novator'], bins=20, alpha=0.5, label='Novato', color='Magenta')
 
-
-df_contagens.plot(kind='bar', figsize=(14, 8), colormap='tab10', alpha=0.8)
-plt.title('Distribuição de Características dos Funcionários')
-plt.xlabel('Características')
+plt.title('Histograma de Turnover')
+plt.xlabel('Categorias')
 plt.ylabel('Contagem')
-plt.xticks(rotation=45)
-plt.legend(title='Valores')
-plt.tight_layout()
+
+plt.xticks(ticks=[0, 10, 20, 30, 40, 50, 60], labels=['0', '10', '20', '30', '40', '50', '60'], rotation=45)
+
+plt.legend()
+
+plt.grid(axis='y', alpha=0.75)
+
 plt.show()
-'''
