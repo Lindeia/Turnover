@@ -28,7 +28,6 @@ Autocontrole = dados_filtrados['selfcontrol'].value_counts().sort_index()
 Ansiedade = dados_filtrados['anxiety'].value_counts().sort_index()
 Novato = dados_filtrados['novator'].value_counts().sort_index()
 
-#Exibe as colunas filtradas
 print(Idade, Extroversão, Indústria, Transporte, Independência, Ansiedade, Novato, Genero)
 
 # Visualização: Histograma das colunas selecionadas
