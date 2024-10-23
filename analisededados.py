@@ -5,18 +5,15 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
-# Carregar e preparar os dados
 dados = pd.read_csv('C:/Users/karol/Documents/Analise de Dados/turnover.csv', sep=",", encoding='ISO-8859-1')
 colunas = ['gender', 'age', 'industry', 'profession', 'way', 'extraversion', 'independ', 'selfcontrol', 'anxiety', 'novator']  
 dados_filtrados = dados[colunas]
 dados_filtrados = dados_filtrados.dropna()
 
-# Configuração para exibir todas as linhas
 pd.set_option('display.max_rows', 1129)
 print(dados_filtrados.shape)
 print(dados_filtrados)
 
-# Análise descritiva e contagem de valores para algumas colunas
 Genero = dados_filtrados['gender'].value_counts().sort_index()
 Idade = dados_filtrados['age'].value_counts().sort_index()
 Indústria = dados_filtrados['industry'].value_counts().sort_index()
@@ -30,7 +27,6 @@ Novato = dados_filtrados['novator'].value_counts().sort_index()
 
 print(Idade, Extroversão, Indústria, Transporte, Independência, Ansiedade, Novato, Genero)
 
-# Visualização: Histograma das colunas selecionadas
 plt.figure(figsize=(10, 7))
 
 plt.hist(dados_filtrados['gender'], bins=20, alpha=0.5, label='Genero', color='cyan')
@@ -52,27 +48,21 @@ plt.legend()
 plt.grid(axis='y', alpha=0.75)
 plt.show()
 
-# Implementação do modelo de Regressão Logística
-# Codificar a variável 'profession'
 le = LabelEncoder()
 y = le.fit_transform(dados_filtrados['profession'])
 
-# Selecionar as variáveis preditoras
 X = dados_filtrados[['age', 'extraversion', 'independ', 'selfcontrol', 'anxiety', 'novator']]
 
-# Dividir os dados em treino e teste
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-# Escalar os dados
+
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# Treinar o modelo de regressão logística com mais iterações
 model = LogisticRegression(max_iter=1000)
 model.fit(X_train_scaled, y_train)
 
-# Fazer previsões e calcular a acurácia
 predictions = model.predict(X_test_scaled)
 accuracy = accuracy_score(y_test, predictions)
 
