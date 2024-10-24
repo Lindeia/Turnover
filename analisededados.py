@@ -1,9 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
-from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
 
 dados = pd.read_csv('C:/Users/karol/Documents/Analise de Dados/turnover.csv', sep=",", encoding='ISO-8859-1')
 colunas = ['gender', 'age', 'industry', 'profession', 'way', 'extraversion', 'independ', 'selfcontrol', 'anxiety', 'novator']  
@@ -48,22 +46,55 @@ plt.legend()
 plt.grid(axis='y', alpha=0.75)
 plt.show()
 
-le = LabelEncoder()
-y = le.fit_transform(dados_filtrados['profession'])
 
-X = dados_filtrados[['age', 'extraversion', 'independ', 'selfcontrol', 'anxiety', 'novator']]
+total_entradas = dados.shape[0]
+media_idade = dados['age'].mean()
+media_extraversion = dados['extraversion'].mean()
+media_independencia = dados['independ'].mean()
+media_autocontrole = dados['selfcontrol'].mean()
+media_ansiedade = dados['anxiety'].mean()
+media_inovacao = dados['novator'].mean()
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+genero_counts = dados['gender'].value_counts()
+masculino = genero_counts.get('m', 0)
+feminino = genero_counts.get('f', 0)
 
 
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+industria_analise = dados.groupby('industry')['anxiety'].agg(['mean', 'std']).reset_index()
+industria_analise.columns = ['Indústria', 'Média de Ansiedade', 'Desvio Padrão']
 
-model = LogisticRegression(max_iter=1000)
-model.fit(X_train_scaled, y_train)
 
-predictions = model.predict(X_test_scaled)
-accuracy = accuracy_score(y_test, predictions)
+X = dados[['age', 'extraversion', 'independ', 'selfcontrol', 'novator']]
+y = dados['anxiety']
 
-print(f'Acurácia do modelo: {accuracy:.2f}')
+model = LinearRegression()
+model.fit(X, y)
+predictions = model.predict(X)
+
+mse = mean_squared_error(y, predictions)
+r2 = r2_score(y, predictions)
+
+
+regressao_resultados = {
+    'Ansiedade': (mean_squared_error(y, predictions), r2),
+   
+}
+
+
+print("Resultados da Análise de Dados")
+print(f"Total de Entradas: {total_entradas}")
+print("Variáveis:")
+print(f"Gênero: Masculino: {masculino}, Feminino: {feminino}")
+print(f"Idade: Média de {media_idade:.1f} anos")
+print(f"Extraversion: Média de {media_extraversion:.2f}")
+print(f"Independência: Média de {media_independencia:.2f}")
+print(f"Autocontrole: Média de {media_autocontrole:.2f}")
+print(f"Ansiedade: Média de {media_ansiedade:.2f}")
+print(f"Inovação: Média de {media_inovacao:.2f}")
+print("\nResultados da Regressão")
+for var, (mse, r2) in regressao_resultados.items():
+    print(f"{var}\nMean Squared Error: {mse:.2f}\nR² Score: {r2:.2f}")
+
+print("\nEstatísticas Descritivas por Indústria:")
+print(industria_analise)
