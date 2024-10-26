@@ -12,7 +12,7 @@ pd.set_option('display.max_rows', 1129)
 print(dados_filtrados.shape)
 print(dados_filtrados)
 
-Genero = dados_filtrados['gender'].value_counts().sort_index()
+'''Genero = dados_filtrados['gender'].value_counts().sort_index()
 Idade = dados_filtrados['age'].value_counts().sort_index()
 Indústria = dados_filtrados['industry'].value_counts().sort_index()
 Profissão = dados_filtrados['profession'].value_counts().sort_index()
@@ -106,4 +106,4 @@ for var, (mse, r2) in regressao_resultados.items():
     print(f"{var}\nMean Squared Error: {mse:.2f}\nR² Score: {r2:.2f}")
 
 print("\nEstatísticas Descritivas por Indústria:")
-print(industria_analise)
+print(industria_analise)'''
