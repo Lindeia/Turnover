@@ -55,15 +55,26 @@ media_autocontrole = dados['selfcontrol'].mean()
 media_ansiedade = dados['anxiety'].mean()
 media_inovacao = dados['novator'].mean()
 
-
 genero_counts = dados['gender'].value_counts()
 masculino = genero_counts.get('m', 0)
 feminino = genero_counts.get('f', 0)
 
 
-industria_analise = dados.groupby('industry')['anxiety'].agg(['mean', 'std']).reset_index()
-industria_analise.columns = ['Indústria', 'Média de Ansiedade', 'Desvio Padrão']
+industria_analise = dados.groupby('industry').agg({
+    'anxiety': ['mean', 'std'],
+    'selfcontrol': ['mean', 'std'],
+    'extraversion': ['mean', 'std'],
+    'independ': ['mean', 'std']
+}).reset_index()
 
+
+industria_analise.columns = [
+    'Indústria', 
+    'Média de Ansiedade', 'Desvio Padrão Ansiedade',
+    'Média de Autocontrole', 'Desvio Padrão Autocontrole',
+    'Média de Extroversão', 'Desvio Padrão Extroversão',
+    'Média de Independência', 'Desvio Padrão Independência'
+]
 
 X = dados[['age', 'extraversion', 'independ', 'selfcontrol', 'novator']]
 y = dados['anxiety']
@@ -71,14 +82,11 @@ y = dados['anxiety']
 model = LinearRegression()
 model.fit(X, y)
 predictions = model.predict(X)
-
 mse = mean_squared_error(y, predictions)
 r2 = r2_score(y, predictions)
 
-
 regressao_resultados = {
-    'Ansiedade': (mean_squared_error(y, predictions), r2),
-   
+    'Ansiedade': (mse, r2),
 }
 
 
@@ -92,6 +100,7 @@ print(f"Independência: Média de {media_independencia:.2f}")
 print(f"Autocontrole: Média de {media_autocontrole:.2f}")
 print(f"Ansiedade: Média de {media_ansiedade:.2f}")
 print(f"Inovação: Média de {media_inovacao:.2f}")
+
 print("\nResultados da Regressão")
 for var, (mse, r2) in regressao_resultados.items():
     print(f"{var}\nMean Squared Error: {mse:.2f}\nR² Score: {r2:.2f}")
